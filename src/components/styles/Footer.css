@@ -1,0 +1,8 @@
+.footerMain {
+  background-color: #333; /* Mismo color que el navbar para consistencia */
+  color: white;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  text-align: center;
+  width: 100%;
+}

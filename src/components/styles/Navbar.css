@@ -1,0 +1,41 @@
+.navbarMain{
+    display: flex;
+    background-color: #333;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+.navbarName{
+    font-size: 1.5rem;
+    padding: 0.3rem;
+}
+.navbarLinks{
+    display: flex;
+    gap: 0.3rem;
+}
+.navbarLeft{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+.navbarButton{
+    background-color: transparent;
+    color: white;
+    border: 0.1rem solid white;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    margin:0.5rem;
+    border-radius: 0.3rem;
+}
+.navbarButton:hover{
+    background-color: #555;
+}
+.totalButton{
+    color: rgb(0, 167, 167);
+    border-color: rgb(0, 167, 167);
+}

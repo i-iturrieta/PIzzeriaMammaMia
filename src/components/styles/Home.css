@@ -1,0 +1,13 @@
+.pizzaGridContainer{
+    display: grid;
+    grid-template-columns: repeat(3, 400px);
+    justify-content: center;
+    padding: 20px;
+    gap: 3rem;
+    background-color: white;
+}
+@media (max-width: 1000px) {
+  .pizzaGridContainer {
+    grid-template-columns: repeat(2, 300px);
+  }
+}
