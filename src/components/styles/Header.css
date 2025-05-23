@@ -11,6 +11,7 @@
     position: relative;
     z-index: 1;
     height: 40vh;
+    width: 100vw;
 
 }
 .headerMain::before{
