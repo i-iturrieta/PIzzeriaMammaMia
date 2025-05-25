@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 //import RegisterPage from './components/RegisterPage';
 //import LoginPage from './components/LoginPage';
-import Cart from './components/cart';
+import Cart from './components/Cart';
 import './App.css';
 function App() {
   return (
