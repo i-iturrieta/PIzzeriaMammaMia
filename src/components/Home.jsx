@@ -1,12 +1,30 @@
+import { useState } from 'react';
 import Header from './Header';
 import'./styles/Home.css';
 import CardPizza from './CardPizza';
+import pizzas from '../data/pizzas';
 
 const Home = () => {
+
+    const [lasPizzas, setLasPizzas] = useState(pizzas);
+
     return (
+
+
+
+
         <div>
             <Header />
             <div className='pizzaGridContainer'>
+
+                
+                {lasPizzas.map(pizzaCard => <CardPizza
+                key={pizzaCard.name}
+                name={pizzaCard.name}
+                price={pizzaCard.price}
+                ingredients={pizzaCard.ingredients}
+                img={pizzaCard.img}>
+                    </CardPizza>)}
 
 
                 <CardPizza
@@ -29,6 +47,7 @@ const Home = () => {
                 price={6950}
                 ingredients={["mozzarella", "pepperoni", "orégano"]}
                 img="https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-1239077_640_com.jpg?alt=media&token=e7cde87a-08d5-4040-ac54-90f6c31eb3e3"/>
+
 
 
 
