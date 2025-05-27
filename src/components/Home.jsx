@@ -1,12 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './Header';
 import'./styles/Home.css';
 import CardPizza from './CardPizza';
-import pizzas from '../data/pizzas';
 
 const Home = () => {
 
-    const [lasPizzas, setLasPizzas] = useState(pizzas);
+    useEffect(() => {
+        const fetchPizzas = async () => {
+            try {
+                const res = await fetch('http://localhost:5000/api/pizzas');
+                const data = await res.json();
+                setLasPizzas(data);
+            } catch (error) {
+                console.error("Error cargando pizzas.", error);
+            }
+        };
+
+        fetchPizzas();
+    }, []);
+
+    const [lasPizzas, setLasPizzas] = useState([]);
 
     return (
 
@@ -19,35 +32,12 @@ const Home = () => {
 
                 
                 {lasPizzas.map(pizzaCard => <CardPizza
-                key={pizzaCard.name}
+                key={pizzaCard.id}
                 name={pizzaCard.name}
                 price={pizzaCard.price}
                 ingredients={pizzaCard.ingredients}
                 img={pizzaCard.img}>
                     </CardPizza>)}
-
-
-                <CardPizza
-                    name="Napolitana"
-                    price={5000}
-                    ingredients={['queso', 'tomate', 'aceitunas']}
-                    img="https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-1239077_640_cl.jpg?alt=media&token=6a9a33da-5c00-49d4-9080-784dcc87ec2c"
-
-                /> 
-
-                <CardPizza
-                name="Española"
-                price={6950}
-                ingredients={["mozzarella", "gorgonzola", "parmesano", "provolone"]}
-                img="https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fcheese-164872_640_com.jpg?alt=media&token=18b2b821-4d0d-43f2-a1c6-8c57bc388fab"
-                />
-                
-                <CardPizza
-                name="Pepperoni"
-                price={6950}
-                ingredients={["mozzarella", "pepperoni", "orégano"]}
-                img="https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fpizza-1239077_640_com.jpg?alt=media&token=e7cde87a-08d5-4040-ac54-90f6c31eb3e3"/>
-
 
 
 

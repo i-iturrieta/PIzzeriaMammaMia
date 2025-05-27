@@ -38,6 +38,7 @@
 }
 .cardPizzaBody hr{
   color: transparent;
+  height: min-content;
 }
 .cardPizzaIngredients {
   list-style: none;
@@ -91,7 +92,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 6rem;
+  height: min-content;
   outline: #ddd 0.1rem solid;
   width: calc(100% + 30px );
 }
