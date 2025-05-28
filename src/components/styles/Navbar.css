@@ -1,3 +1,10 @@
+.navbarButton{
+    text-decoration: none;
+}
+.navbarName{
+    text-decoration: none;
+    color:white;
+}
 .navbarMain{
     display: flex;
     background-color: #333;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { formatPrice } from "../utils/formatPrice";
+import { formatPrice } from "../../utils/formatPrice";
 const Pizza = () => {
     const [lasPizzas, setLasPizzas] = useState([]);
     useEffect(() => {

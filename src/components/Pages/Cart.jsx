@@ -1,5 +1,5 @@
-import pizzas from "../data/pizzas";
-import { formatPrice } from "../utils/formatPrice";
+import pizzas from "../../data/pizzas";
+import { formatPrice } from "../../utils/formatPrice";
 import { useState } from "react";
 const Cart = () => {
 
@@ -27,7 +27,7 @@ const Cart = () => {
 
 
     return (
-        <div className="container mt-4 mb-4">
+        <div className="container mt-4 mb-auto">
             <h3>Detalles del pedido:</h3>
             <div className="border rounded p-3 mb-3 col-10">
                 {pizzas.map(pedido => 
@@ -36,7 +36,7 @@ const Cart = () => {
                     key={pedido.name}>
                         <div className="d-flex align-items-center gap-5">
                             <img src={pedido.img} alt={pedido.name}
-                            className="w-25"/>
+                            className="w-25 rounded"/>
                             <h5 style={{marginBottom: 0, fontSize: "2rem"}}>{pedido.name}</h5> 
                         </div>
                         <div className="d-flex align-items-center gap-5">

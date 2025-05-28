@@ -1,39 +1,35 @@
 import './styles/Navbar.css';
-import {formatPrice} from '../utils/formatPrice';
+import { formatPrice } from '../utils/formatPrice';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const total = 25000;
-    const token = false;
+    const token = true;
     
     return (
         <nav className='navbarMain'>
             <div className='navbarLeft'>
-                <div className='navbarName'>Pizzería Mamma Mía!</div>
+                <Link className='navbarName' to="/">Pizzería Mamma Mía!</Link>
                 <div className='navbarLinks'>
-                    <button className='navbarButton'>🍕 Home</button>
+                    <Link className='navbarButton' to="/">Home</Link>
                     {token ? (
                         <>
-                            <button className='navbarButton'>🔓 Profile</button> 
-                            <button className='navbarButton'>🔒 Logout</button>
+                            <Link className='navbarButton' to="/profile">🔓 Profile</Link> 
+                            <Link className='navbarButton' to="/">🔒 Logout</Link>
                         </>
-                        
                     ) : (
                         <>
-                            <button className='navbarButton'>🔐 Login</button> 
-                            <button className='navbarButton'>🔐 Register</button>
+                            <Link className='navbarButton' to="/login">🔐 Login</Link> 
+                            <Link className='navbarButton' to="/register">🔐 Register</Link>
                         </>
-                        
                     )}
-                    
+                    <Link className='navbarButton' to="/pizza">🍕 Pizzas</Link>
                 </div>
             </div>
 
-
             <div className='navbarRight'>
-                    <button className='totalButton navbarButton'>🛒 Total: {formatPrice(total)}</button>
+                <Link className='totalButton navbarButton' to="/cart">🛒 Total: {formatPrice(total)}</Link>
             </div>
-
-
         </nav>
     );
 };
