@@ -1,53 +1,44 @@
 import pizzas from "../../data/pizzas";
 import { formatPrice } from "../../utils/formatPrice";
-import { useState } from "react";
+import { useCart } from "../../context/CartContext";
+import { Link } from "react-router-dom";
 const Cart = () => {
 
-    const [quantity, setQuantity] = useState({});
-
-    const addQuantity = (name) =>{
-        setQuantity(prev => ({
-            ...prev,
-            [name]: (prev[name] || 0) + 1
-        }));
-
-    };
-    const restQuantity = (name) =>{
-        setQuantity(prev => ({
-            ...prev,
-            [name]: Math.max((prev[name] || 0) - 1, 0)
-        }));
-
-    };
-    const total = pizzas.reduce((acc, pizza) => {
-        const cuantity = quantity[pizza.name] || 0;
-        return acc + cuantity * pizza.price;
-    }, 0);
-
+    const {cart, increaseQty, decreaseQty, totalPrice} = useCart()
+    if (cart.length === 0) {
+        return (
+            <div className="container mt-5 text-center mb-auto">
+                <h3>No hay pizzas en tu carrito 😢</h3>
+                <Link to="/" className="btn btn-success mt-3">
+                Volver al menú 🍕
+                </Link>
+            </div>
+                );
+    }
 
 
     return (
-        <div className="container mt-4 mb-auto">
+        <div className="container mt-4 mb-auto m">
             <h3>Detalles del pedido:</h3>
             <div className="border rounded p-3 mb-3 col-10">
-                {pizzas.map(pedido => 
+                {cart.map(pizza => 
                     <div
                     className="d-flex align-items-center justify-content-between mb-3"
-                    key={pedido.name}>
+                    key={pizza.id} >
                         <div className="d-flex align-items-center gap-5">
-                            <img src={pedido.img} alt={pedido.name}
+                            <img src={pizza.img} alt={pizza.name}
                             className="w-25 rounded"/>
-                            <h5 style={{marginBottom: 0, fontSize: "2rem"}}>{pedido.name}</h5> 
+                            <h5 style={{marginBottom: 0, fontSize: "2rem"}}>{pizza.name}</h5> 
                         </div>
                         <div className="d-flex align-items-center gap-5">
-                            <h5 style={{marginBottom: 0, fontSize: "2rem"}}>{formatPrice(pedido.price)}</h5>
+                            <h5 style={{marginBottom: 0, fontSize: "2rem"}}>{formatPrice(pizza.price)}</h5>
                             <div className="d-flex align-items-center gap-3">
                                 <button className="btn btn-outline-danger" 
-                                    onClick={() => restQuantity(pedido.name)}
+                                    onClick={() => decreaseQty(pizza.id)}
                                 >-</button>
-                                <p className="" style={{marginBottom: 0, fontSize: "2rem"}}>{quantity[pedido.name] || 0}</p>
+                                <p className="" style={{marginBottom: 0, fontSize: "2rem"}}>{pizza.quantity}</p>
                                 <button className="btn btn-outline-primary"
-                                    onClick={() => addQuantity(pedido.name)}>+</button>
+                                    onClick={() => increaseQty(pizza.id)}>+</button>
                             </div>
                         </div>
                         
@@ -55,7 +46,7 @@ const Cart = () => {
                     </div>
                 )}
             </div>
-            <h2>Total: {formatPrice(total)}</h2>
+            <h2>Total: {formatPrice(totalPrice)}</h2>
             <button className="btn btn-dark">Pagar</button>
         
         

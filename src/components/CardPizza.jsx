@@ -1,7 +1,12 @@
 import './styles/CardPizza.css';
 import {formatPrice} from '../utils/formatPrice';
+import { useCart } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 
-const CardPizza = ({name, price, ingredients, img}) => {
+const CardPizza = ({id, name, price, ingredients, img}) => {
+
+    const {addToCart} = useCart();
+
     return (
         <div className='cardPizza'>
             <img src={img} alt={name} className='cardPizzaImg' />
@@ -21,8 +26,8 @@ const CardPizza = ({name, price, ingredients, img}) => {
                 <hr />
                 <p className='cardPizzaPrice'>Precio: {formatPrice(price)}</p>
                 <div className='cardPizzaActions'>
-                    <button className='cardButton buttonInfo'>Ver Más 👀</button>
-                    <button className='cardButton buttonAdd'>Añadir 🛒</button>
+                    <Link to="/pizza" className='cardButton buttonInfo'>Ver Más 👀</Link>
+                    <button className='cardButton buttonAdd' onClick={() => addToCart({id, name, price, img})}>Añadir 🛒</button>
                 </div>
             </div>
         </div>

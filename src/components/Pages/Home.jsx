@@ -31,12 +31,13 @@ const Home = () => {
             <div className='pizzaGridContainer'>
 
                 
-                {lasPizzas.map(pizzaCard => <CardPizza
-                key={pizzaCard.id}
-                name={pizzaCard.name}
-                price={pizzaCard.price}
-                ingredients={pizzaCard.ingredients}
-                img={pizzaCard.img}>
+                {lasPizzas.map(pizza => <CardPizza
+                key={pizza.id}
+                id={pizza.id}
+                name={pizza.name}
+                price={pizza.price}
+                ingredients={pizza.ingredients}
+                img={pizza.img}>
                     </CardPizza>)}
 
 
