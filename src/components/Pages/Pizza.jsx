@@ -1,50 +1,44 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { formatPrice } from "../../utils/formatPrice";
 const Pizza = () => {
-    const [lasPizzas, setLasPizzas] = useState([]);
+    const {id} = useParams();
+
+    const [pizza, setPizza] = useState(null);
+
+
     useEffect(() => {
 
         
-        const fetchPizzas = async () => {
+        const fetchPizza = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/pizzas');
+                const res = await fetch(`http://localhost:5000/api/pizzas/${id}`);
                 const data = await res.json();
-                setLasPizzas(data);
+                setPizza(data);
             } catch (error) {
-                console.error("Error cargando pizzas.", error);
+                console.error("Error cargando la pizza.", error);
             }
         };
 
-        fetchPizzas();
-    }, []);
+        fetchPizza();
+    }, [id]);
+
+    if (!pizza) return <p>Cargando PIzza...</p>
 
     
 
     return (
-        <table className="table table-striped table-hover my-4 w-75">
-            <thead>
-                <tr>
-                    <th>Imágen referencial</th>
-                    <th>Nombres</th>
-                    <th>Ingredientes</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                </tr>
-            </thead>
-            <tbody>
-                {lasPizzas.map(rowPizza => <tr key={rowPizza.id}>
-                    <td ><img className="w-100" src={rowPizza.img} alt={rowPizza.name}/></td>
-                    <td>{rowPizza.name}</td>
-                    <td>{rowPizza.ingredients.join(", ")}</td>
-                    <td>{rowPizza.desc}</td>
-                    <td>{formatPrice(rowPizza.price)}</td>
 
-                </tr>)}
-            </tbody>
-        </table>
+        <div className="container my-4">
+            <h2 className="mb-3">Pizza {pizza.name.charAt(0).toUpperCase() + pizza.name.slice(1)}</h2>
+            <img src={pizza.img} alt={pizza.name} className="img-fluid mb-3" />
+            <p><strong>Descripción:</strong> {pizza.desc}</p>
+            <p><strong>Ingredientes:</strong> {pizza.ingredients.join(', ')}</p>
+            <p><strong>Precio:</strong> {formatPrice(pizza.price)}</p>
+        </div>        
 
     )
 }
 
 
-export default Pizza
+export default Pizza;

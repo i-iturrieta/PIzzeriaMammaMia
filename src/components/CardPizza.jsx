@@ -26,7 +26,7 @@ const CardPizza = ({id, name, price, ingredients, img}) => {
                 <hr />
                 <p className='cardPizzaPrice'>Precio: {formatPrice(price)}</p>
                 <div className='cardPizzaActions'>
-                    <Link to="/pizza" className='cardButton buttonInfo'>Ver Más 👀</Link>
+                    <Link to={`/pizza/${id}`} className='cardButton buttonInfo'>Ver Más 👀</Link>
                     <button className='cardButton buttonAdd' onClick={() => addToCart({id, name, price, img})}>Añadir 🛒</button>
                 </div>
             </div>

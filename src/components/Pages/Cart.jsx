@@ -1,8 +1,10 @@
-import pizzas from "../../data/pizzas";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
 import { Link } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 const Cart = () => {
+
+    const {token} = useUser();
 
     const {cart, increaseQty, decreaseQty, totalPrice} = useCart()
     if (cart.length === 0) {
@@ -47,7 +49,8 @@ const Cart = () => {
                 )}
             </div>
             <h2>Total: {formatPrice(totalPrice)}</h2>
-            <button className="btn btn-dark">Pagar</button>
+            <button className="btn btn-dark" disabled={!token}>Pagar</button>
+            {!token && <p className="text-danger mt-2">Debes iniciar seción para poder pagar.</p>}
         
         
         
