@@ -1,31 +1,42 @@
 import { useState } from "react";
+import { useUser } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
+    const {login} = useUser();
+    const navigate = useNavigate();
 
-    const validarDatos = (e) => {
+    const validarDatos = async (e) => {
 
         e.preventDefault();
 
-        setError(false);
+        setError("");
 
         if(!email.trim() || !password.trim()) {
             alert("Ingresar todos los datos");
-            setError(true);
+            setError("Ingresar todos los datos");
             return;
         } else if (password.length <= 5) {
-            setError(true);
+            setError("La contraseña debe ser de al menos 6 caracteres.");
             alert("La contraseña debe ser de al menos 6 caracteres.");
             return;
         }
+        const success = await login(email, password);
+        if (success) {
+            alert("Se ha ingresado exitosamente.")
+            navigate("/profile");
+        } else {
+            setError("Email o contraseña incorrectos. Intente nuevamente.");
+            alert("Email o contraseña incorrectos. Intente nuevamente.");
+            setEmail("");
+            setPassword("");
+        }
 
-        setEmail("");
-        setPassword("");
-        alert("Ingreso exitoso.");
-    }
+    };
 
     return (
         <>
@@ -34,7 +45,7 @@ const LoginPage = () => {
                 <form onSubmit={validarDatos}>
                     <div className="form-group my-3">
                         <label>Email</label>
-                        <input type="text"
+                        <input type="email"
                         name="email"
                         className="form-control"
                         onChange={(e) => setEmail(e.target.value)}
@@ -60,4 +71,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage
+export default LoginPage;

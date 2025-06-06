@@ -6,7 +6,34 @@ const Cart = () => {
 
     const {token} = useUser();
 
-    const {cart, increaseQty, decreaseQty, totalPrice} = useCart()
+    const {cart, increaseQty, decreaseQty, totalPrice, clearCart} = useCart()
+    const handleCheckout = async () =>{
+        try {
+            const res = await fetch("http://localhost:5000/api/checkouts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    items: cart.map((pizza) => ({
+                        id: pizza.id,
+                        name: pizza.name,
+                        price: pizza.price,
+                        quantity: pizza.quantity,
+                    })),
+                }),
+            });
+            if (!res.ok) throw new Error("Error");
+            const data = await res.json();
+            alert("Realizado exitosamente")
+            clearCart();
+        } catch (error) {
+            console.error(error);
+            alert("Ha ocurrido un error");
+        }
+
+    };
     if (cart.length === 0) {
         return (
             <div className="container mt-5 text-center mb-auto">
@@ -49,7 +76,10 @@ const Cart = () => {
                 )}
             </div>
             <h2>Total: {formatPrice(totalPrice)}</h2>
-            <button className="btn btn-dark" disabled={!token}>Pagar</button>
+            <button 
+                className="btn btn-dark" 
+                disabled={!token}
+                onClick={handleCheckout}>Pagar</button>
             {!token && <p className="text-danger mt-2">Debes iniciar seción para poder pagar.</p>}
         
         

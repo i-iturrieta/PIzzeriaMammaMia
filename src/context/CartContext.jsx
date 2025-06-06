@@ -32,6 +32,9 @@ export const CartProvider = ({ children }) => {
         .filter(p => p.quantity > 0)
     );
   };
+  const clearCart = () => {
+    setCart([]); // Vacía el carrito
+  };
 
   const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
@@ -43,6 +46,7 @@ export const CartProvider = ({ children }) => {
       increaseQty,
       decreaseQty,
       totalPrice,
+      clearCart
     }}>
       {children}
     </CartContext.Provider>
